@@ -1,0 +1,14 @@
+<?php $this->form->setAttribute('action', $this->actionLink('book/add')) ?>
+<?php echo $this->form()->openTag($this->form) ?>
+	<?php echo $this->formRow($this->form->get('id')) ?>
+	<?php //echo $this->formLabel($this->form->get('title')) ?>
+	<?php echo $this->formRow($this->form->get('title')) ?>
+	<?php //echo $this->fieldError($this->form->get('title')) ?>
+	<?php echo $this->formRow($this->form->get('isbn')) ?>
+	<?php echo $this->formRow($this->form->get('author')) ?>
+	<?php echo $this->formButton($this->form->get('submit'), 'Add') ?>
+<?php echo $this->form()->closeTag() ?>
+
+<br/>
+
+<a href="<?php echo $this->actionLink('book/index') ?>">See book's list</a>

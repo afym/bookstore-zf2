@@ -1,0 +1,28 @@
+<h1>Book's List</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Title</th>
+			<th>ISBN</th>
+			<th>Author</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php $id = 1 ?>
+		<?php foreach ($this->books as $book) : ?>
+			<tr>
+				<td><?php echo $id ?></td>
+				<td><?php echo $book->getTitle() ?></td>
+				<td><?php echo $book->getIsbn() ?></td>
+				<td><?php echo $book->getAuthor() ?></td>
+			</tr>
+		<?php $id++ ?>
+		<?php endforeach; ?>
+	</tbody>
+</table>
+
+<br/>
+
+<a href="<?php echo $this->actionLink('book/add') ?>">Add new book</a>
