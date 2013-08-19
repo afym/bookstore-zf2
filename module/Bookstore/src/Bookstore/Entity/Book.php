@@ -1,106 +1,113 @@
 <?php
 
 namespace Bookstore\Entity;
+
 use Bookstore\Entity\Category;
 
 /**
  * @author Frank  
  */
-
 class Book {
-	private $id;
-	private $title;
-	private $isbn;
-	private $author;
-	private $category;
 
-	/**
-	 * @return the $id
-	 */
-	public function getId() {
-		return $this->id;
-	}
+    private $id;
+    private $title;
+    private $isbn;
+    private $author;
+    private $category;
 
-	/**
-	 * @return the $title
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
+    /**
+     * @return int $id
+     */
+    public function getId() {
+        return $this->id;
+    }
 
-	/**
-	 * @return the $isbn
-	 */
-	public function getIsbn() {
-		return $this->isbn;
-	}
+    /**
+     * @return String $title
+     */
+    public function getTitle() {
+        return $this->title;
+    }
 
-	/**
-	 * @return the $author
-	 */
-	public function getAuthor() {
-		return $this->author;
-	}
+    /**
+     * @return String $isbn
+     */
+    public function getIsbn() {
+        return $this->isbn;
+    }
 
-	/**
-	 * @return the $category
-	 */
-	public function getCategory() {
-		return $this->category;
-	}
+    /**
+     * @return String $author
+     */
+    public function getAuthor() {
+        return $this->author;
+    }
 
-	/**
-	 * @param field_type $id
-	 */
-	public function setId($id) {
-		$this->id = $id;
-	}
+    /**
+     * @return Category $category
+     */
+    public function getCategory() {
+        return $this->category;
+    }
 
-	/**
-	 * @param field_type $title
-	 */
-	public function setTitle($title) {
-		$this->title = $title;
-	}
+    /**
+     * @param int $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
 
-	/**
-	 * @param field_type $isbn
-	 */
-	public function setIsbn($isbn) {
-		$this->isbn = $isbn;
-	}
+    /**
+     * @param String $title
+     */
+    public function setTitle($title) {
+        $this->title = $title;
+    }
 
-	/**
-	 * @param field_type $author
-	 */
-	public function setAuthor($author) {
-		$this->author = $author;
-	}
+    /**
+     * @param String $isbn
+     */
+    public function setIsbn($isbn) {
+        $this->isbn = $isbn;
+    }
 
-	/**
-	 * @param field_type $category
-	 */
-	public function setCategory(Category $category) {
-		$this->category = $category;
-	}
+    /**
+     * @param String $author
+     */
+    public function setAuthor($author) {
+        $this->author = $author;
+    }
 
-	public function exchangeArray($data) 
-	{
-		$this->id = isset($data['id']) ? $data['id'] : null;
-		$this->title = isset($data['title']) ? $data['title'] : null;
-		$this->isbn = isset($data['isbn']) ? $data['isbn'] : null;
-		$this->author = isset($data['author']) ? $data['author'] : null;
-		
-		return $this;
-	}
+    /**
+     * @param Category $category
+     */
+    public function setCategory(Category $category) {
+        $this->category = $category;
+    }
 
-	public function toArray()
-	{
-		return array(
-			'id' 	 => $this->id,
-			'title'  => $this->title,
-			'isbn' 	 => $this->isbn,
-			'author' => $this->author,
-		);
-	}
+    /**
+     * @param Array $data
+     * @return Object
+     */
+    public function exchangeArray($data) {
+        foreach (get_object_vars($this) as $property => $value) {
+            $this->$property = isset($data[$property]) ? $data[$property] : $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Array
+     */
+    public function toArray() {
+        $array = array();
+
+        foreach (get_object_vars($this) as $property => $value) {
+            $array[$property] = $this->$property;
+        }
+
+        return $array;
+    }
+
 }

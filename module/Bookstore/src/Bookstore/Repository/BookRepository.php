@@ -2,16 +2,14 @@
 
 namespace Bookstore\Repository;
 
-use Util\DataBase\AbstractRepository;
-use Util\DataBase\Connection;
-use Zend\Db\Sql\Sql;
-use Zend\Db\ResultSet\ResultSet;
-use Bookstore\Entity\Book;
+use Util\Mapper\BaseRepository;
+use Zend\Db\Adapter\Adapter;
 
-class BookRepository extends AbstractRepository
-{
-	public function __construct(Connection $connection)
-	{
-		parent::__construct($connection);
-	}
+class BookRepository extends BaseRepository {
+
+    protected $table = 'books';
+
+    public function __construct(Adapter $connection) {
+        parent::__construct($connection);
+    }
 }

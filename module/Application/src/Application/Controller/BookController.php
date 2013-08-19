@@ -3,61 +3,55 @@
 namespace Application\Controller;
 
 use Bookstore\Entity\Book;
-
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Bookstore\Form\BookForm;
 use Bookstore\Form\BookFilter;
 
-class BookController extends AbstractActionController
-{
-	public function indexAction() 
-	{
-		return new ViewModel ( array (
-				'books' => $this->getBookService()->getAll() 
-		));
-	}
+class BookController extends AbstractActionController {
 
-	public function addAction() 
-	{
-		$form = $this->getBookForm();
-		$request = $this->getRequest();
+    public function indexAction() {
+        return new ViewModel(array(
+            'books' => $this->getBookService()->getAll()
+        ));
+    }
 
-		if ($request->isPost()) {
-			$form->setInputFilter($this->getBookFilter()->getInputFilter());
-			$form->setData($request->getPost());
+    public function addAction() {
+        $form = $this->getBookForm();
+        $request = $this->getRequest();
 
-			if ($form->isValid()) {
-				$book = new Book();
-				$book->exchangeArray($request->getPost()->toArray());
+        if ($request->isPost()) {
+            $form->setInputFilter($this->getBookFilter()->getInputFilter());
+            $form->setData($request->getPost());
 
-				$this->getBookService()->save($book->toArray());
+            if ($form->isValid()) {
+                $book = new Book();
+                $book->exchangeArray($request->getPost()->toArray());
 
-				return $this->redirect()->toRoute('application',
-					array('controller'	=> 'book',
-				          'action' 		=> 'index',
-				          'params' 		=> array())
-					);
-			}
-		}
+                $this->getBookService()->save($book->toArray());
 
-		return new ViewModel(array(
-			'form' => $form,
-		));
-	}
+                return $this->redirect()->toRoute('application', array('controller' => 'book',
+                            'action' => 'index',
+                            'params' => array())
+                );
+            }
+        }
 
-	private function getBookFilter()
-	{
-		return new BookFilter();
-	}
+        return new ViewModel(array(
+            'form' => $form,
+        ));
+    }
 
-	private function getBookForm()
-	{
-		return new BookForm();
-	}
+    private function getBookFilter() {
+        return new BookFilter();
+    }
 
-	private function getBookService() 
-	{
-		return $this->getServiceLocator()->get('BookService');
-	}
+    private function getBookForm() {
+        return new BookForm();
+    }
+
+    private function getBookService() {
+        return $this->getServiceLocator()->get('BookService');
+    }
+
 }
